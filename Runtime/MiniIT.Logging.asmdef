@@ -1,0 +1,21 @@
+{
+    "name": "MiniIT.Logging",
+    "references": [
+        "Microsoft.Extensions.Logging.Abstractions",
+        "ZString"
+	],
+    "optionalUnityReferences": [],
+    "excludePlatforms": [],
+	"allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.zstring",
+            "expression": "2.0.0",
+            "define": "ZSTRING"
+        }
+    ]
+}
