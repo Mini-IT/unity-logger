@@ -3,50 +3,6 @@ using Microsoft.Extensions.Logging;
 
 namespace MiniIT.Logging.Unity
 {
-	public class UnityLoggerFactory : ILoggerFactory
-	{
-		private ILoggerProvider _provider;
-
-		public UnityLoggerFactory()
-		{
-			UnityEngine.Application.quitting += Dispose;
-		}
-
-		public void AddProvider(ILoggerProvider provider)
-		{
-			_provider = provider;
-		}
-
-		public ILogger CreateLogger(string categoryName)
-		{
-			return GetProvider().CreateLogger(categoryName);
-		}
-
-		public void Dispose()
-		{
-			UnityEngine.Application.quitting -= Dispose;
-			_provider?.Dispose();
-		}
-
-		private ILoggerProvider GetProvider()
-		{
-			_provider ??= new UnityLoggerProvider();
-			return _provider;
-		}
-	}
-
-	public class UnityLoggerProvider : ILoggerProvider
-	{
-		public ILogger CreateLogger(string categoryName)
-		{
-			return new UnityLogger(categoryName);
-		}
-
-		public void Dispose()
-		{
-		}
-	}
-
 	public class UnityLogger : ILogger
 	{
 		private readonly string _categoryName;
@@ -124,13 +80,6 @@ namespace MiniIT.Logging.Unity
 #endif
 					.Format("<i>{0} UTC</i> [{1}] {2}", now, _categoryName, str);
 			}
-		}
-	}
-
-	internal class NullDisposable : IDisposable
-	{
-		public void Dispose()
-		{
 		}
 	}
 }
