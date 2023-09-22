@@ -61,3 +61,20 @@ public class DefaultLoggerExample : MonoBehaviour
   }
 }
 ```
+
+## ZLogger
+Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API they can be interchanged by simply changing the factory.
+```cs
+using Microsoft.Extensions.Logging;
+using ZLogger;
+using Cysharp.Text;
+
+factory = ZLogger.UnityLoggerFactory.Create(builder =>
+{
+  builder.SetMinimumLevel(LogLevel.Trace);
+  builder.AddZLoggerUnityDebug(options =>
+  {
+    options.PrefixFormatter = (writer, info) => ZString.Utf8Format(writer, "[{0}] ", info.CategoryName);
+  });
+});
+```
