@@ -11,6 +11,21 @@ The dependency managed DLL are not included to avoid possible duplication. You n
 * [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/7.0.1)
 
 ## Usage
+1. Create a [logger factory](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory)
+   ```cs
+   ILoggerFactory factory = new MiniIT.Logging.Unity.UnityLoggerFactory();
+   ```
+2. Create a [logger](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.ilogger)
+   ```cs
+   ILogger logger = factory.CreateLogger("MyCategory");
+   ```
+3. Write a log message with a specified [log level](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-level)
+   ```cs
+   logger.LogTrace("Example trace");
+   logger.LogWarning("Example warning");
+   logger.LogError("Example error");
+   ```
+### Example
 ```cs
 using Microsoft.Extensions.Logging;
 using MiniIT.Logging.Unity;
