@@ -4,7 +4,7 @@ This package allows using of the [.NET logging API](https://learn.microsoft.com/
 ## Installation
 Add the package ([instructions](https://docs.unity3d.com/Manual/upm-ui-giturl.html)) using this Git URL:
 ```
-https://github.com/Mini-IT/AdvertisingIdentifierFetcher.git
+https://github.com/Mini-IT/unity-logger.git
 ```
 ### Install managed DLLs from NuGet
 The dependency managed DLL are not included to avoid possible duplication. You need to add them to the project manually. You can extract the needed dlls from NuGet packages (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
