@@ -14,5 +14,5 @@
 		"Logging"
 	],
 	"displayName": "Mini IT Logger",
-	"description": "Mini IT Logger"
+	"description": ".NET logging API wrapper for Unity"
 }
