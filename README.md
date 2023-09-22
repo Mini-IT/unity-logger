@@ -14,6 +14,7 @@ The dependency managed DLL are not included to avoid possible duplication. You n
 ```cs
 using Microsoft.Extensions.Logging;
 using MiniIT.Logging.Unity;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 public static class LogManager
 {
