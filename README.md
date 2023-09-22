@@ -1,5 +1,5 @@
 # unity-logger
-This package allows using [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
+This package allows using of the [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
 
 ## Installation
 Add the package ([instructions](https://docs.unity3d.com/Manual/upm-ui-giturl.html)) using this Git URL:
