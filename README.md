@@ -34,14 +34,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 public static class LogManager
 {
   private static ILoggerFactory s_factory;
-  public static ILoggerFactory Factory
-  {
-    get
-    {
-      s_factory ??= new MiniIT.Logging.Unity.UnityLoggerFactory();
-      return s_factory;
-    }
-  }
+  public static ILoggerFactory Factory => s_factory ??= new MiniIT.Logging.Unity.UnityLoggerFactory();
 
   private static ILogger s_defaultLogger;
   public static ILogger DefaultLogger => s_defaultLogger ??= Factory.CreateLogger("");
