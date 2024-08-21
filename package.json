@@ -1,12 +1,12 @@
 {
 	"name": "com.miniit.logger",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"dependencies": {
 	},
 	"unity": "2020.3",
 	"author": {
 		"name": "Mini IT",
-		"url": "http://snipeserver.com"
+		"url": "http://mini-it.com"
 	},
 	"keywords": [
 		"MiniIT",
