@@ -4,10 +4,16 @@ namespace MiniIT.Logging.Unity
 {
 	public class UnityLoggerFactory : ILoggerFactory
 	{
+		public static UnityLoggerFactory Default => s_instance ??= new UnityLoggerFactory();
+
+		private static UnityLoggerFactory s_instance;
+
 		private ILoggerProvider _provider;
 
 		public UnityLoggerFactory()
 		{
+			s_instance ??= this;
+
 			UnityEngine.Application.quitting += Dispose;
 		}
 
@@ -23,6 +29,11 @@ namespace MiniIT.Logging.Unity
 
 		public void Dispose()
 		{
+			if (s_instance == this)
+			{
+				s_instance = null;
+			}
+
 			UnityEngine.Application.quitting -= Dispose;
 			_provider?.Dispose();
 		}
