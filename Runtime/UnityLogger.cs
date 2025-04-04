@@ -29,7 +29,7 @@ namespace MiniIT.Logging.Unity
 				case LogLevel.Trace:
 				case LogLevel.Debug:
 				case LogLevel.Information:
-					
+
 					UnityEngine.Debug.Log(FormatMessage(state, exception, formatter));
 					break;
 
@@ -50,8 +50,6 @@ namespace MiniIT.Logging.Unity
 					break;
 
 				case LogLevel.None:
-					break;
-
 				default:
 					break;
 			}
@@ -59,7 +57,7 @@ namespace MiniIT.Logging.Unity
 
 		private object FormatMessage<TState>(TState state, Exception exception, Func<TState, Exception, string> formatter)
 		{
-			string now = DateTime.UtcNow.ToString("dd.MM.yyyy HH:mm:ss");
+			string now = DateTime.UtcNow.ToString("[yyyy-MM-dd HH:mm:ss.fff UTC]");
 			string str = formatter.Invoke(state, exception);
 
 			if (string.IsNullOrEmpty(_categoryName))
@@ -69,7 +67,7 @@ namespace MiniIT.Logging.Unity
 #else
 				return string
 #endif
-					.Format("<i>{0} UTC</i> {1}", now, str);
+					.Format("{0} {1}", now, str);
 			}
 			else
 			{
@@ -78,7 +76,7 @@ namespace MiniIT.Logging.Unity
 #else
 				return string
 #endif
-					.Format("<i>{0} UTC</i> [{1}] {2}", now, _categoryName, str);
+					.Format("{0} [{1}] {2}", now, _categoryName, str);
 			}
 		}
 	}
