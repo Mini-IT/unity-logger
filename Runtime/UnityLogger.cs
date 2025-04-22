@@ -6,14 +6,19 @@ namespace MiniIT.Logging.Unity
 	public class UnityLogger : ILogger
 	{
 		private readonly string _categoryName;
+		private string _scopeString;
 
 		public UnityLogger(string categoryName)
 		{
 			_categoryName = categoryName;
+			_scopeString = $"[{_categoryName}]";
 		}
 
 		public IDisposable BeginScope<TState>(TState state) where TState : notnull
 		{
+			string stateString = state?.ToString() ?? string.Empty;
+			string scope = string.IsNullOrEmpty(stateString) ? string.Empty : $" ({stateString})";
+			_scopeString = $"[{_categoryName}]{scope}";
 			return new NullDisposable();
 		}
 
@@ -60,7 +65,7 @@ namespace MiniIT.Logging.Unity
 			string now = DateTime.UtcNow.ToString("[yyyy-MM-dd HH:mm:ss.fff UTC]");
 			string str = formatter.Invoke(state, exception);
 
-			if (string.IsNullOrEmpty(_categoryName))
+			if (string.IsNullOrEmpty(_scopeString))
 			{
 #if ZSTRING
 				return Cysharp.Text.ZString
@@ -76,7 +81,7 @@ namespace MiniIT.Logging.Unity
 #else
 				return string
 #endif
-					.Format("{0} [{1}] {2}", now, _categoryName, str);
+					.Format("{0} {1} {2}", now, _scopeString, str);
 			}
 		}
 	}
