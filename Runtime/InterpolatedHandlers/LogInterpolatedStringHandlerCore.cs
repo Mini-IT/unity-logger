@@ -1,12 +1,20 @@
 using Microsoft.Extensions.Logging;
-using System.Text;
 using System;
+#if ZSTRING
+using Cysharp.Text;
+#else
+using System.Text;
+#endif
 
 namespace MiniIT.Logging
 {
     internal ref struct LogInterpolatedStringHandlerCore
     {
+ #if ZSTRING
+        private Utf16ValueStringBuilder _builder;
+ #else
         private readonly StringBuilder _builder;
+ #endif
         private readonly bool _enabled;
 
         public bool Enabled => _enabled;
@@ -20,7 +28,11 @@ namespace MiniIT.Logging
         {
             enabled = logger != null && logger.IsEnabled(level);
             _enabled = enabled;
+ #if ZSTRING
+            _builder = enabled ? ZString.CreateStringBuilder(true) : default;
+ #else
             _builder = enabled ? new StringBuilder(literalLength) : null;
+ #endif
         }
 
         public void AppendLiteral(string value)
@@ -111,8 +123,13 @@ namespace MiniIT.Logging
                 return string.Empty;
             }
 
+ #if ZSTRING
+            string s = _builder.ToString();
+            _builder.Dispose();
+ #else
             string s = _builder.ToString();
             _builder.Clear();
+ #endif
 
             return s;
         }
