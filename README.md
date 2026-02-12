@@ -1,13 +1,13 @@
 # unity-logger
-This package allows using of the [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
+This package allows you to use the [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
 
 ## Installation
 Add the package ([instructions](https://docs.unity3d.com/Manual/upm-ui-giturl.html)) using this Git URL:
 ```
 https://github.com/Mini-IT/unity-logger.git
 ```
-### Install managed DLLs from NuGet
-The dependency managed DLL are not included to avoid possible duplication. You need to add them to the project manually. You can extract the needed dlls from NuGet packages (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
+### Install managed DLL from NuGet
+The required managed DLL is not included to avoid possible duplication. You need to add it to the project manually. You can extract this DLL from a NuGet package (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
 * [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/7.0.1)
 
 ## Usage
@@ -72,7 +72,7 @@ public class DefaultLoggerExample : MonoBehaviour
 ```
 
 ## ZLogger
-Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API they can be interchanged by simply changing the factory.
+Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API, you can interchange them simply by changing the factory.
 ```cs
 using Microsoft.Extensions.Logging;
 using ZLogger;
