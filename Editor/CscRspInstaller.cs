@@ -15,7 +15,7 @@ namespace MiniIT.Logging.Editor
 
         private static readonly string RspPath = Path.Combine(Application.dataPath, "csc.rsp");
 
-        private static string EditorPrefsKey => $"Nk7.Logger.CscRspInit::{Application.dataPath}";
+        private static string EditorPrefsKey => $"MiniIT.Logger.CscRspInit::{Application.dataPath}";
 
         static CscRspInstaller()
         {
@@ -33,7 +33,7 @@ namespace MiniIT.Logging.Editor
             EditorPrefs.SetBool(EditorPrefsKey, true);
         }
 
-        [MenuItem("Nk7/Logger/Ensure C# 10 (csc.rsp)")]
+        [MenuItem("MiniIT/Logger/Ensure C# 10 (csc.rsp)")]
         private static void EnsureCscRspMenu()
         {
             EnsureCscRsp(force: true);
