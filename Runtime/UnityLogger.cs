@@ -28,7 +28,7 @@ namespace MiniIT.Logging.Unity
 		{
 			if (logLevel == LogLevel.None || _minLogLevel == LogLevel.None)
 			{
-				return false;
+				return true;
 			}
 
 			return logLevel >= _minLogLevel;

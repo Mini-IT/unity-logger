@@ -11,7 +11,7 @@ namespace MiniIT.Logging
 			logger.Log(LogLevel.Trace, message, args);
 		}
 
-		public static void Debug(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref DebugLogInterpolatedStringHandler handler)
+		public static void LogDebug(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref DebugLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -21,7 +21,7 @@ namespace MiniIT.Logging
 			logger.LogDebug(handler.ToStringAndClear());
 		}
 
-		public static void Trace(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref TraceLogInterpolatedStringHandler handler)
+		public static void LogTrace(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref TraceLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -31,7 +31,7 @@ namespace MiniIT.Logging
 			logger.LogTrace(handler.ToStringAndClear());
 		}
 
-		public static void Information(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref InformationLogInterpolatedStringHandler handler)
+		public static void LogInformation(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref InformationLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -41,7 +41,7 @@ namespace MiniIT.Logging
 			logger.LogInformation(handler.ToStringAndClear());
 		}
 
-		public static void Warning(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref WarningLogInterpolatedStringHandler handler)
+		public static void LogWarning(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref WarningLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -51,7 +51,7 @@ namespace MiniIT.Logging
 			logger.LogWarning(handler.ToStringAndClear());
 		}
 
-		public static void Error(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref ErrorLogInterpolatedStringHandler handler)
+		public static void LogError(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref ErrorLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -61,7 +61,7 @@ namespace MiniIT.Logging
 			logger.LogError(handler.ToStringAndClear());
 		}
 
-		public static void Critical(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref CriticalLogInterpolatedStringHandler handler)
+		public static void LogCritical(this ILogger logger, [InterpolatedStringHandlerArgument("logger")] ref CriticalLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -71,7 +71,7 @@ namespace MiniIT.Logging
 			logger.LogCritical(handler.ToStringAndClear());
 		}
 
-		public static void Debug(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref DebugLogInterpolatedStringHandler handler)
+		public static void LogDebug(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref DebugLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -81,7 +81,7 @@ namespace MiniIT.Logging
 			logger.LogDebug(exception, handler.ToStringAndClear());
 		}
 
-		public static void Trace(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref TraceLogInterpolatedStringHandler handler)
+		public static void LogTrace(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref TraceLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -91,7 +91,7 @@ namespace MiniIT.Logging
 			logger.LogTrace(exception, handler.ToStringAndClear());
 		}
 
-		public static void Information(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref InformationLogInterpolatedStringHandler handler)
+		public static void LogInformation(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref InformationLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -101,7 +101,7 @@ namespace MiniIT.Logging
 			logger.LogInformation(exception, handler.ToStringAndClear());
 		}
 
-		public static void Warning(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref WarningLogInterpolatedStringHandler handler)
+		public static void LogWarning(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref WarningLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -111,7 +111,7 @@ namespace MiniIT.Logging
 			logger.LogWarning(exception, handler.ToStringAndClear());
 		}
 
-		public static void Error(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref ErrorLogInterpolatedStringHandler handler)
+		public static void LogError(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref ErrorLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
@@ -121,7 +121,7 @@ namespace MiniIT.Logging
 			logger.LogError(exception, handler.ToStringAndClear());
 		}
 
-		public static void Critical(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref CriticalLogInterpolatedStringHandler handler)
+		public static void LogCritical(this ILogger logger, Exception exception, [InterpolatedStringHandlerArgument("logger")] ref CriticalLogInterpolatedStringHandler handler)
 		{
 			if (!handler.Enabled)
 			{
