@@ -9,12 +9,24 @@ namespace MiniIT.Logging.Unity
 		private static UnityLoggerFactory s_instance;
 
 		private ILoggerProvider _provider;
+		private LogLevel _minLogLevel = LogLevel.Trace;
 
 		public UnityLoggerFactory()
 		{
 			s_instance ??= this;
 
 			UnityEngine.Application.quitting += Dispose;
+		}
+
+		public UnityLoggerFactory(LogLevel minLogLevel)
+			: this()
+		{
+			_minLogLevel = minLogLevel;
+		}
+
+		public static UnityLoggerFactory Create(LogLevel minLogLevel)
+		{
+			return new UnityLoggerFactory(minLogLevel);
 		}
 
 		public void AddProvider(ILoggerProvider provider)
@@ -40,7 +52,7 @@ namespace MiniIT.Logging.Unity
 
 		private ILoggerProvider GetProvider()
 		{
-			_provider ??= new UnityLoggerProvider();
+			_provider ??= new UnityLoggerProvider(_minLogLevel);
 			return _provider;
 		}
 	}

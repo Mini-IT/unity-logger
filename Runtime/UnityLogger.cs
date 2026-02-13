@@ -6,11 +6,13 @@ namespace MiniIT.Logging.Unity
 	public class UnityLogger : ILogger
 	{
 		private readonly string _categoryName;
+		private readonly LogLevel _minLogLevel;
 		private string _scopeString;
 
-		public UnityLogger(string categoryName)
+		public UnityLogger(string categoryName, LogLevel minLogLevel = LogLevel.Trace)
 		{
 			_categoryName = categoryName;
+			_minLogLevel = minLogLevel;
 			_scopeString = $"[{_categoryName}]";
 		}
 
@@ -24,25 +26,34 @@ namespace MiniIT.Logging.Unity
 
 		public bool IsEnabled(LogLevel logLevel)
 		{
-			return logLevel != LogLevel.None;
+			if (logLevel == LogLevel.None || _minLogLevel == LogLevel.None)
+			{
+				return true;
+			}
+
+			return logLevel >= _minLogLevel;
 		}
 
 		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
 		{
+			if (!IsEnabled(logLevel))
+			{
+				return;
+			}
+
 			switch (logLevel)
 			{
 				case LogLevel.Trace:
 				case LogLevel.Debug:
 				case LogLevel.Information:
-
 					UnityEngine.Debug.Log(FormatMessage(state, exception, formatter));
 					break;
 
 				case LogLevel.Warning:
-				case LogLevel.Critical:
 					UnityEngine.Debug.LogWarning(FormatMessage(state, exception, formatter));
 					break;
 
+				case LogLevel.Critical:
 				case LogLevel.Error:
 					if (exception != null)
 					{
