@@ -14,9 +14,9 @@ namespace MiniIT.Logging.Editor
         private static readonly Version RequiredLangVersion = new Version(10, 0);
         private static readonly string[] LangVersionPrefixes = { "-langversion:", "/langversion:" };
 
-        private static readonly string RspPath = Path.Combine(Application.dataPath, "csc.rsp");
+        private static readonly string RspPath = Path.Combine(UnityEngine.Application.dataPath, "csc.rsp");
 
-        private static string EditorPrefsKey => $"MiniIT.Logger.CscRspInit::{Application.dataPath}";
+        private static string EditorPrefsKey => $"MiniIT.Logger.CscRspInit::{UnityEngine.Application.dataPath}";
 
         static CscRspInstaller()
         {
