@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Logging;
 
 namespace MiniIT.Logging.Unity
@@ -37,6 +38,16 @@ namespace MiniIT.Logging.Unity
 
 		public void AddProvider(ILoggerProvider provider)
 		{
+			if (_provider == provider)
+			{
+				return;
+			}
+
+			if (_provider is IDisposable disposable)
+			{
+				disposable.Dispose();
+			}
+
 			_provider = provider;
 		}
 
