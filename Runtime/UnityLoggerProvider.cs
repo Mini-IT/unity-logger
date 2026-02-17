@@ -2,26 +2,20 @@ using Microsoft.Extensions.Logging;
 
 namespace MiniIT.Logging.Unity
 {
-	public class UnityLoggerProvider : ILoggerProvider
+	public sealed class UnityLoggerProvider : ILoggerProvider
 	{
-		private LogLevel _minimumLevel = LogLevel.Trace;
+		private readonly UnityLogProcessor _logProcessor;
 
-		public LogLevel MinimumLevel
+		public UnityLoggerProvider(UnityLogProcessor logProcessor)
 		{
-			get => _minimumLevel;
-			set => _minimumLevel = value;
+			_logProcessor = logProcessor;
 		}
 
 		public ILogger CreateLogger(string categoryName)
 		{
-			return new UnityLogger(categoryName, GetLogLevel);
+			return new UnityLogger(categoryName, _logProcessor);
 		}
 
 		public void Dispose() { }
-
-		private LogLevel GetLogLevel()
-		{
-			return _minimumLevel;
-		}
 	}
 }

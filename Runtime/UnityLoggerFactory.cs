@@ -4,29 +4,35 @@ namespace MiniIT.Logging.Unity
 {
 	public class UnityLoggerFactory : ILoggerFactory
 	{
-		public static UnityLoggerFactory Default => s_instance ??= new UnityLoggerFactory();
+		public static UnityLoggerFactory Default
+		{
+			get
+			{
+				s_logProcessor ??= new UnityLogProcessor();
+				return s_instance ??= new UnityLoggerFactory(s_logProcessor);
+			}
+		}
 
 		private static UnityLoggerFactory s_instance;
-
+		private static UnityLogProcessor s_logProcessor;
+        
 		private ILoggerProvider _provider;
 
-		public UnityLoggerFactory()
+		public UnityLoggerFactory(UnityLogProcessor logProcessor)
 		{
+			s_logProcessor = logProcessor ?? s_logProcessor ?? new UnityLogProcessor();
+
+			// If the default factory was created before DI configured the processor,
+			// reset provider so it gets rebuilt with the latest processor.
+			if (s_instance != null && s_instance._provider != null)
+			{
+				s_instance._provider.Dispose();
+				s_instance._provider = null;
+			}
+
 			s_instance ??= this;
 
 			UnityEngine.Application.quitting += Dispose;
-		}
-
-		public void SetMinimumLevel(LogLevel level)
-		{
-			var provider = GetProvider();
-
-			if (provider is not UnityLoggerProvider unityProvider)
-			{
-				return;
-			}
-
-			unityProvider.MinimumLevel = level;
 		}
 
 		public void AddProvider(ILoggerProvider provider)
@@ -52,7 +58,8 @@ namespace MiniIT.Logging.Unity
 
 		private ILoggerProvider GetProvider()
 		{
-			_provider ??= new UnityLoggerProvider();
+			s_logProcessor ??= new UnityLogProcessor();
+			_provider ??= new UnityLoggerProvider(s_logProcessor);
 			return _provider;
 		}
 	}
