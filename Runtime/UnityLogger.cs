@@ -1,5 +1,5 @@
-using System;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace MiniIT.Logging.Unity
 {
@@ -8,9 +8,13 @@ namespace MiniIT.Logging.Unity
 		private readonly string _categoryName;
 		private string _scopeString;
 
-		public UnityLogger(string categoryName)
+		private readonly Func<LogLevel> _getMinLevel;
+
+		public UnityLogger(string categoryName, Func<LogLevel> getMinLevel = null)
 		{
 			_categoryName = categoryName;
+			_getMinLevel = getMinLevel;
+
 			_scopeString = $"[{_categoryName}]";
 		}
 
@@ -24,11 +28,22 @@ namespace MiniIT.Logging.Unity
 
 		public bool IsEnabled(LogLevel logLevel)
 		{
-			return logLevel != LogLevel.None;
+			if (_getMinLevel == null)
+			{
+				return logLevel != LogLevel.None;
+			}
+
+			return logLevel >= _getMinLevel.Invoke()
+				&& logLevel != LogLevel.None;
 		}
 
 		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
 		{
+			if (!IsEnabled(logLevel))
+			{
+				return;
+			}
+
 			switch (logLevel)
 			{
 				case LogLevel.Trace:
@@ -39,10 +54,11 @@ namespace MiniIT.Logging.Unity
 					break;
 
 				case LogLevel.Warning:
-				case LogLevel.Critical:
+
 					UnityEngine.Debug.LogWarning(FormatMessage(state, exception, formatter));
 					break;
 
+				case LogLevel.Critical:
 				case LogLevel.Error:
 					if (exception != null)
 					{

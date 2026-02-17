@@ -17,6 +17,18 @@ namespace MiniIT.Logging.Unity
 			UnityEngine.Application.quitting += Dispose;
 		}
 
+		public void SetMinimumLevel(LogLevel level)
+		{
+			var provider = GetProvider();
+
+			if (provider is not UnityLoggerProvider unityProvider)
+			{
+				return;
+			}
+
+			unityProvider.MinimumLevel = level;
+		}
+
 		public void AddProvider(ILoggerProvider provider)
 		{
 			_provider = provider;

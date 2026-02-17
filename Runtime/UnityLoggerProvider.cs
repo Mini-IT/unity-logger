@@ -4,13 +4,24 @@ namespace MiniIT.Logging.Unity
 {
 	public class UnityLoggerProvider : ILoggerProvider
 	{
-		public ILogger CreateLogger(string categoryName)
+		private LogLevel _minimumLevel = LogLevel.Trace;
+
+		public LogLevel MinimumLevel
 		{
-			return new UnityLogger(categoryName);
+			get => _minimumLevel;
+			set => _minimumLevel = value;
 		}
 
-		public void Dispose()
+		public ILogger CreateLogger(string categoryName)
 		{
+			return new UnityLogger(categoryName, GetLogLevel);
+		}
+
+		public void Dispose() { }
+
+		private LogLevel GetLogLevel()
+		{
+			return _minimumLevel;
 		}
 	}
 }
