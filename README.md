@@ -8,12 +8,12 @@ https://github.com/Mini-IT/unity-logger.git
 ```
 ### Install managed DLL from NuGet
 The required managed DLL is not included to avoid possible duplication. You need to add it to the project manually. You can extract this DLL from a NuGet package (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
-* [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/7.0.1)
+* [Microsoft.Extensions.Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging)
 
 ## Usage
 1. Create a [logger factory](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory)
    ```cs
-   ILoggerFactory factory = new MiniIT.Logging.Unity.UnityLoggerFactory();
+   ILoggerFactory factory = LoggerFactory.Create(builder => builder.AddUnityLogger());
    ```
 2. Create a [logger](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.ilogger)
    ```cs
