@@ -13,7 +13,7 @@ namespace MiniIT.Logging.Unity
 			{
 				var options = new UnityLoggerOptions();
 				configure(options);
-				options.MinLogLevelProvider ??= new NoneMinLogLevelProvider();
+				options.MinimumLogLevelProvider ??= new NoneMinimumLogLevelProvider();
 				options.StackTraceConfig ??= new FullStackTraceConfig();
 				var processor = new UnityLogProcessor(options);
 				return new UnityLoggerProvider(processor);

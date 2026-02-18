@@ -8,7 +8,7 @@ namespace MiniIT.Logging.Unity
 	{
 		public bool IsEnabled(LogLevel logLevel)
 		{
-			return logLevel >= _options.MinLogLevelProvider.GetMinimumLogLevel();
+			return logLevel >= _options.MinimumLogLevelProvider.GetMinimumLogLevel();
 		}
 
 		private readonly UnityLoggerOptions _options;

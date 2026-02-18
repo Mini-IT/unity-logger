@@ -27,12 +27,13 @@ The required managed DLL is not included to avoid possible duplication. You need
    ```
 ### Options
 You can configure the logger using options, provided by `builder.AddUnityLogger()`:
-- `MinLogLevelProvider` allows controlling the minimum log level in runtime.
+- `MinimumLogLevelProvider` allows controlling the minimum log level in runtime.
 - `StackTraceConfig` allows controlling whether a log output should contain a stack trace.
 
 You can manually implement the needed interfaces or use the predefined classes:
-- `IMinLogLevelProvider`:
-  - `NoneMinLogLevelProvider` (used by default) allows all [log levels](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-level)
+- `IMinimumLogLevelProvider`:
+  - `NoneMinimumLogLevelProvider` (used by default) allows all [log levels](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-level)
+  - `ConstantMinimumLogLevelProvider` sets an immutable minimum log level value
 - `IUnityLogStackTraceConfig`:
   - `FullStackTraceConfig` (used by default) applies [StackTraceLogType.Full](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all [Unity LogTypes](https://docs.unity3d.com/ScriptReference/LogType.html)
   - `ScriptOnlyStackTraceConfig` applies [StackTraceLogType.ScriptOnly](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all Unity LogTypes
@@ -40,6 +41,7 @@ You can manually implement the needed interfaces or use the predefined classes:
 ```csharp
 var factory = LoggerFactory.Create(builder => builder.AddUnityLogger(options =>
 {
+  options.MinimumLogLevelProvider = new ConstantMinimumLogLevelProvider(LogLevel.Error);
   options.StackTraceConfig = new NoneStackTraceConfig();
 }));
 ```
@@ -88,6 +90,44 @@ public class DefaultLoggerExample : MonoBehaviour
   void Start()
   {
     LogManager.DefaultLogger.LogTrace("Default logger message");
+  }
+}
+```
+### Minimum log level controlling example
+```cs
+public class CustomMinimumLogLevelProvider : IMinimumLogLevelProvider
+{
+  private LogLevel _level = LogLevel.None;
+
+  public LogLevel GetMinimumLogLevel() => _level;
+  public void SetMinimumLogLevel(LogLevel value) => _level = value;
+}
+
+public class LogExample
+{
+  private readonly CustomMinimumLogLevelProvider _minLogLevelProvider = new CustomMinimumLogLevelProvider();
+  private readonly ILogger _logger;
+
+  public LogExample()
+  {
+    var loggerFactory = LoggerFactory.Create(builder => builder.AddUnityLogger(options =>
+    {
+      options.MinimumLogLevelProvider = _minLogLevelProvider;
+    }));
+
+    _logger = loggerFactory.CreateLogger(nameof(LogExample));
+
+    PringLog();
+  }
+
+  public void PringLog()
+  {
+    _logger.LogTrace("This message will be printed");
+
+    _minLogLevelProvider.SetMinimumLogLevel(LogLevel.Error);
+
+    _logger.LogTrace("This message will NOT be printed");
+    _logger.LogError("This message will be printed");
   }
 }
 ```
