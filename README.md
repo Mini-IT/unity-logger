@@ -105,7 +105,7 @@ public class CustomMinimumLogLevelProvider : IMinimumLogLevelProvider
 
 public class LogExample
 {
-  private readonly CustomMinimumLogLevelProvider _minLogLevelProvider = new CustomMinimumLogLevelProvider();
+  private readonly CustomMinimumLogLevelProvider _minLogLevelProvider = new ();
   private readonly ILogger _logger;
 
   public LogExample()
