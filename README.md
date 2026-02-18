@@ -1,13 +1,13 @@
 # unity-logger
-This package allows using of the [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
+This package allows you to use the [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
 
 ## Installation
 Add the package ([instructions](https://docs.unity3d.com/Manual/upm-ui-giturl.html)) using this Git URL:
 ```
 https://github.com/Mini-IT/unity-logger.git
 ```
-### Install managed DLLs from NuGet
-The dependency managed DLL are not included to avoid possible duplication. You need to add them to the project manually. You can extract the needed dlls from NuGet packages (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
+### Install managed DLL from NuGet
+The required managed DLL is not included to avoid possible duplication. You need to add it to the project manually. You can extract this DLL from a NuGet package (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
 * [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/7.0.1)
 
 ## Usage
@@ -25,13 +25,6 @@ The dependency managed DLL are not included to avoid possible duplication. You n
    logger.LogWarning("Example warning");
    logger.LogError("Example error");
    ```
-4. Change minimum log level in runtime
-   ```cs
-   UnityLoggerFactory unityFactory = (UnityLoggerFactory)factory;
-   unityFactory.SetMinimumLevel(LogLevel.Warning); // Trace/Debug/Information are filtered
-   unityFactory.SetMinimumLevel(LogLevel.Trace);   // enable all logs again
-   unityFactory.SetMinimumLevel(LogLevel.None);    // disable all logs
-   ```
 ### Example
 ```cs
 using Microsoft.Extensions.Logging;
@@ -40,8 +33,8 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 public static class LogManager
 {
-  private static UnityLoggerFactory s_factory;
-  public static UnityLoggerFactory Factory => s_factory ??= new UnityLoggerFactory();
+  private static ILoggerFactory s_factory;
+  public static ILoggerFactory Factory => s_factory ??= new MiniIT.Logging.Unity.UnityLoggerFactory();
 
   private static ILogger s_defaultLogger;
   public static ILogger DefaultLogger => s_defaultLogger ??= Factory.CreateLogger("");
@@ -53,8 +46,6 @@ public class LoggerExample : MonoBehaviour
 
   void Start()
   {
-    LogManager.Factory.SetMinimumLevel(LogLevel.Information);
-
     _logger = LogManager.Factory.CreateLogger<LoggerExample>();         // category is the full class name
     //_logger = LogManager.Factory.CreateLogger(nameof(LoggerExample)); // category is the short class name
     //_logger = LogManager.Factory.CreateLogger("LoggerExample");       // custom category
@@ -80,10 +71,8 @@ public class DefaultLoggerExample : MonoBehaviour
 }
 ```
 
-`SetMinimumLevel(...)` updates filtering for both new and existing logger instances created by the same `UnityLoggerProvider`.
-
 ## ZLogger
-Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API they can be interchanged by simply changing the factory.
+Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API, you can interchange them simply by changing the factory.
 ```cs
 using Microsoft.Extensions.Logging;
 using ZLogger;
