@@ -93,7 +93,7 @@ public class DefaultLoggerExample : MonoBehaviour
   }
 }
 ```
-### Minimum log level controlling example
+### Custom MinimumLogLevelProvider example
 ```cs
 public class CustomMinimumLogLevelProvider : IMinimumLogLevelProvider
 {
