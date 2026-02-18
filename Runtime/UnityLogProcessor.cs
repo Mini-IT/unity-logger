@@ -57,7 +57,7 @@ namespace MiniIT.Logging.Unity
 		private void UnityLog(LogType logType, object message)
 		{
 			var prevStackLogType = Application.GetStackTraceLogType(logType);
-			Application.SetStackTraceLogType(logType, _options.StackTraceConfig.GetStackTraceEnabled(logType));
+			Application.SetStackTraceLogType(logType, _options.StackTraceMapper.GetStackTraceEnabled(logType));
 			Debug.unityLogger.Log(logType, message);
 			Application.SetStackTraceLogType(logType, prevStackLogType);
 		}

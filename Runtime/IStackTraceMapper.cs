@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace MiniIT.Logging.Unity
 {
-	public interface IUnityLogStackTraceConfig
+	public interface IStackTraceMapper
 	{
-		StackTraceLogType GetStackTraceEnabled(UnityEngine.LogType logType);
+		StackTraceLogType GetStackTraceEnabled(LogType logType);
 	}
 
-	public sealed class FullStackTraceConfig : IUnityLogStackTraceConfig
+	public sealed class FullStackTraceMapper : IStackTraceMapper
 	{
 		public StackTraceLogType GetStackTraceEnabled(LogType logType)
 		{
@@ -15,7 +15,7 @@ namespace MiniIT.Logging.Unity
 		}
 	}
 
-	public sealed class ScriptOnlyStackTraceConfig : IUnityLogStackTraceConfig
+	public sealed class ScriptOnlyStackTraceMapper : IStackTraceMapper
 	{
 		public StackTraceLogType GetStackTraceEnabled(LogType logType)
 		{
@@ -23,7 +23,7 @@ namespace MiniIT.Logging.Unity
 		}
 	}
 
-	public sealed class NoneStackTraceConfig : IUnityLogStackTraceConfig
+	public sealed class NoneStackTraceMapper : IStackTraceMapper
 	{
 		public StackTraceLogType GetStackTraceEnabled(LogType logType)
 		{
