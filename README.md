@@ -25,6 +25,25 @@ The required managed DLL is not included to avoid possible duplication. You need
    logger.LogWarning("Example warning");
    logger.LogError("Example error");
    ```
+### Options
+You can configure the logger using options, provided by `builder.AddUnityLogger()`:
+- `MinLogLevelProvider` allows controlling the minimum log level in runtime.
+- `StackTraceConfig` allows controlling whether a log output should contain a stack trace.
+
+You can manually implement the needed interfaces or use the predefined classes:
+- `IMinLogLevelProvider`:
+  - `NoneMinLogLevelProvider` (used by default) allows all [log levels](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-level)
+- `IUnityLogStackTraceConfig`:
+  - `FullStackTraceConfig` (used by default) applies [StackTraceLogType.Full](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all [Unity LogTypes](https://docs.unity3d.com/ScriptReference/LogType.html)
+  - `ScriptOnlyStackTraceConfig` applies [StackTraceLogType.ScriptOnly](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all Unity LogTypes
+  - `NoneStackTraceConfig` applies [StackTraceLogType.None](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all Unity LogTypes
+```csharp
+var factory = LoggerFactory.Create(builder => builder.AddUnityLogger(options =>
+{
+  options.StackTraceConfig = new NoneStackTraceConfig();
+}));
+```
+
 ### Example
 ```cs
 using Microsoft.Extensions.Logging;
@@ -34,12 +53,13 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 public static class LogManager
 {
   private static ILoggerFactory s_factory;
-  public static ILoggerFactory Factory => s_factory ??= new MiniIT.Logging.Unity.UnityLoggerFactory();
+  public static ILoggerFactory Factory => s_factory ??= LoggerFactory.Create(builder => builder.AddUnityLogger());
 
   private static ILogger s_defaultLogger;
   public static ILogger DefaultLogger => s_defaultLogger ??= Factory.CreateLogger("");
 }
-
+```
+```cs
 public class LoggerExample : MonoBehaviour
 {
   private ILogger _logger;
@@ -57,11 +77,12 @@ public class LoggerExample : MonoBehaviour
   {
     if (Input.GetKeyDown(KeyCode.Space))
     {
-      _logger.LogTrace("Space pressed at {0}", Time.realtimeSinceStartup);
+      _logger.LogTrace("Key pressed at {0}", Time.realtimeSinceStartup);
     }
   }
 }
-
+```
+```cs
 public class DefaultLoggerExample : MonoBehaviour
 {
   void Start()
@@ -71,14 +92,14 @@ public class DefaultLoggerExample : MonoBehaviour
 }
 ```
 
-## ZLogger
+## ZLogger interchangeability
 Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API, you can interchange them simply by changing the factory.
 ```cs
 using Microsoft.Extensions.Logging;
 using ZLogger;
 using Cysharp.Text;
 
-factory = ZLogger.UnityLoggerFactory.Create(builder =>
+factory = LoggerFactory.Create(builder =>
 {
   builder.SetMinimumLevel(LogLevel.Trace);
   builder.AddZLoggerUnityDebug(options =>
