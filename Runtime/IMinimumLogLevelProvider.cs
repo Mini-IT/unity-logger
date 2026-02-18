@@ -19,8 +19,8 @@ namespace MiniIT.Logging.Unity
 		public LogLevel GetMinimumLogLevel() => _logLevel;
 	}
 
-	public sealed class NoneMinimumLogLevelProvider : ConstantMinimumLogLevelProvider
+	public sealed class TraceMinimumLogLevelProvider : ConstantMinimumLogLevelProvider
 	{
-		public NoneMinimumLogLevelProvider() : base(LogLevel.None) { }
+		public TraceMinimumLogLevelProvider() : base(LogLevel.Trace) { }
 	}
 }

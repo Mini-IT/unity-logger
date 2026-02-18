@@ -14,7 +14,7 @@ namespace MiniIT.Logging.Unity
 			{
 				var options = new UnityLoggerOptions();
 				configure(options);
-				options.MinimumLogLevelProvider ??= new NoneMinimumLogLevelProvider();
+				options.MinimumLogLevelProvider ??= new TraceMinimumLogLevelProvider();
 				options.StackTraceMapper ??= new ScriptOnlyStackTraceMapper();
 				var processor = new UnityLogProcessor(options);
 				return new UnityLoggerProvider(processor);
