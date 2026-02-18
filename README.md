@@ -35,8 +35,8 @@ You can manually implement the needed interfaces or use the predefined classes:
   - `NoneMinimumLogLevelProvider` (used by default) allows all [log levels](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-level)
   - `ConstantMinimumLogLevelProvider` sets an immutable minimum log level value
 - `IStackTraceMapper`:
-  - `FullStackTraceMapper` (used by default) applies [StackTraceLogType.Full](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all [Unity LogTypes](https://docs.unity3d.com/ScriptReference/LogType.html)
-  - `ScriptOnlyStackTraceMapper` applies [StackTraceLogType.ScriptOnly](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all Unity LogTypes
+  - `FullStackTraceMapper` applies [StackTraceLogType.Full](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all [Unity LogTypes](https://docs.unity3d.com/ScriptReference/LogType.html)
+  - `ScriptOnlyStackTraceMapper` (used by default) applies [StackTraceLogType.ScriptOnly](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all Unity LogTypes
   - `NoneStackTraceMapper` applies [StackTraceLogType.None](https://docs.unity3d.com/ScriptReference/StackTraceLogType.html) to all Unity LogTypes
 ```csharp
 var factory = LoggerFactory.Create(builder => builder.AddUnityLogger(options =>
