@@ -66,12 +66,13 @@ public class LoggerExample : MonoBehaviour
 {
   private ILogger _logger;
 
+  void Awake()
+  {
+    _logger = LogManager.Factory.CreateLogger(nameof(LoggerExample));
+  }
+
   void Start()
   {
-    _logger = LogManager.Factory.CreateLogger<LoggerExample>();         // category is the full class name
-    //_logger = LogManager.Factory.CreateLogger(nameof(LoggerExample)); // category is the short class name
-    //_logger = LogManager.Factory.CreateLogger("LoggerExample");       // custom category
-
     _logger.LogTrace("Start");
   }
 
