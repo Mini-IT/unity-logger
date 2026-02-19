@@ -1,11 +1,11 @@
 {
 	"name": "com.miniit.logger",
-	"version": "1.1.2",
+	"version": "2.0.0",
 	"dependencies": {
 	},
 	"author": {
 		"name": "Mini IT",
-		"url": "http://mini-it.com"
+		"url": "https://mini-it.com"
 	},
 	"keywords": [
 		"MiniIT",
