@@ -2,13 +2,19 @@
 This package allows you to use the [.NET logging API](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) in Unity.
 
 ## Installation
-Add the package ([instructions](https://docs.unity3d.com/Manual/upm-ui-giturl.html)) using this Git URL:
+Add the package (see [this guide](https://docs.unity3d.com/Manual/upm-ui-giturl.html)) using this Git URL:
 ```
 https://github.com/Mini-IT/unity-logger.git
 ```
-### Install managed DLL from NuGet
-The required managed DLL is not included to avoid possible duplication. You need to add it to the project manually. You can extract this DLL from a NuGet package (either [manually](https://stackoverflow.com/a/61187711) or using a tool like [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity))
-* [Microsoft.Extensions.Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging)
+### NuGet Dependency
+
+The following NuGet package is required:
+
+- [Microsoft.Extensions.Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging)
+
+The recommended way to install it is via the [OpenUPM scoped registry](https://openupm.com/nuget/#using-unitynuget-directly).
+
+Alternatively, you can use a tool such as [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity) or even [manually extract](https://stackoverflow.com/a/61187711) the required DLLs.
 
 ## Usage
 1. Create a [logger factory](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory)
@@ -88,7 +94,7 @@ public class DefaultLoggerExample : MonoBehaviour
   }
 }
 ```
-### Custom MinimumLogLevelProvider example
+### Custom MinimumLogLevelProvider Example
 ```cs
 public class CustomMinimumLogLevelProvider : IMinimumLogLevelProvider
 {
@@ -131,7 +137,7 @@ public class LogExample
 }
 ```
 
-## ZLogger interchangeability
+## ZLogger Interchangeability
 Since this logger and [ZLogger](https://github.com/Cysharp/ZLogger#unity) both use the same API, you can interchange them simply by changing the factory.
 ```cs
 using Microsoft.Extensions.Logging;
