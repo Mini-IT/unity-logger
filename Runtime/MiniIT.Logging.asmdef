@@ -1,5 +1,6 @@
 {
     "name": "MiniIT.Logging",
+	"rootNamespace": "MiniIT.Logging",
     "references": [
         "Microsoft.Extensions.Logging.Abstractions",
         "ZString"
